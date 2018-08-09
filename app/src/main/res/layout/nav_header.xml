@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_header"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:padding="10dp"
+    android:background="?attr/colorPrimary">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/head_img"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/bitcoin"
+        android:layout_centerInParent="true"/>
+
+    <TextView
+        android:id="@+id/nav_address"
+        android:gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:singleLine="true"
+        android:layout_height="wrap_content"
+        android:text="6666666666666666666"
+        android:ems="8"
+        android:layout_below="@+id/head_img"
+        android:textColor="#FFF"
+        android:ellipsize="middle"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">BitcoinWallet</string>
+
+    <string name="empty" translatable="false"/>
+
+    <string name="create_wallet_error">创建失败，请重试</string>
+
+    <string name="main_tx_received">接收交易</string>
+    <string name="main_tx_sent">发送交易</string>
+</resources>

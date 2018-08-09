@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  >
+
+  <data>
+
+    <import type="android.view.View"/>
+
+    <import type="android.support.v4.widget.SwipeRefreshLayout"/>
+
+    <variable
+      name="fragmentManager"
+      type="android.support.v4.app.FragmentManager"/>
+
+    <variable
+      name="viewModel"
+      type="com.lrkj.bitcoinwallet.major.main.MainViewModel"/>
+
+  </data>
+
+  <android.support.v4.widget.DrawerLayout
+      android:id="@+id/drawer_layout"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+    <android.support.design.widget.CoordinatorLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:fitsSystemWindows="true">
+
+      <!--标题栏-->
+      <android.support.design.widget.AppBarLayout
+          android:id="@+id/appBar"
+          android:layout_width="match_parent"
+          android:layout_height="250dp"
+          app:hideTitleWhenCollapsed="@{viewModel.shouldHideTitleWhenCollapsed}"
+          app:offsetChangedListener="@{viewModel}">
+
+        <!--滑动标题栏效果-->
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+          <!--背景图片-->
+          <ImageView
+              android:id="@+id/background_image_view"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:scaleType="centerCrop"
+              app:layout_collapseMode="parallax"/>
+
+          <!--显示内容-->
+          <RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/head_img"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:src="@drawable/bitcoin"
+                android:layout_marginTop="50dp"/>
+
+            <TextView
+                android:id="@+id/btcwallet_address"
+                android:gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:singleLine="true"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.address}"
+                android:ems="8"
+                android:layout_below="@+id/head_img"
+                android:textColor="#FFF"
+                android:ellipsize="middle"
+                android:layout_centerHorizontal="true"/>
+
+          </RelativeLayout>
+
+          <!--toolbar-->
+          <android.support.v7.widget.Toolbar
+              android:id="@+id/toolbar"
+              android:layout_width="match_parent"
+              android:layout_height="?attr/actionBarSize"
+              app:layout_collapseMode="pin"
+              app:title="@{viewModel.balance}"/>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+      </android.support.design.widget.AppBarLayout>
+
+      <!--滚动列表-->
+      <android.support.v4.widget.NestedScrollView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          app:layout_behavior="@string/appbar_scrolling_view_behavior"
+          android:layout_marginTop="30dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_currency"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+      </android.support.v4.widget.NestedScrollView>
+
+      <!--<com.hsy.simplebitcoinwallet.main.ScrollChildSwipeRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onRefresh="@{viewModel}"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:refreshing="@{viewModel.showProgressBar}"
+        app:scrollUpChild="@{txsContainer}"
+        app:size="@{SwipeRefreshLayout.LARGE}">
+
+        <android.support.v4.widget.NestedScrollView
+          android:id="@+id/scrollView"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:fillViewport="true">
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ProgressBar
+              android:id="@+id/syncProgressBar"
+              style="@android:style/Widget.ProgressBar.Horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="3dp"
+              android:indeterminate="@{viewModel.syncProgress > 0 ? false : true}"
+              android:max="100"
+              android:progress="@{viewModel.syncProgress}"
+              android:visibility="@{viewModel.syncProgress >= 100 ? View.GONE : View.VISIBLE}"/>
+
+            <android.support.v7.widget.RecyclerView
+              android:id="@+id/txsContainer"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:paddingLeft="10dp"
+              android:paddingRight="10dp"
+              app:items="@{viewModel.items}"/>
+
+          </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+      </com.hsy.simplebitcoinwallet.main.ScrollChildSwipeRefreshLayout>-->
+
+      <!--<android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_gravity="bottom|end"
+        android:elevation="6dp"
+        android:onClick="@{() -> viewModel.launchSendCoinPage(fragmentManager)}"
+        android:src="@android:drawable/ic_menu_send"
+        app:fabSize="normal"
+        app:pressedTranslationZ="12dp"/>-->
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <!--侧边抽屉栏-->
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="left"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/nav_menu" />
+
+  </android.support.v4.widget.DrawerLayout>
+
+</layout>

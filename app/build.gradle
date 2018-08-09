@@ -1,0 +1,53 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.lrkj.bitcoinwallet"
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+}
+
+dependencies {
+    /*基础*/
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:28.0.0-alpha1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    /*布局相关*/
+    implementation 'com.android.support:design:28.0.0-alpha1'
+    implementation 'com.android.support:recyclerview-v7:28.0.0-alpha1'
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+
+    /*比特币相关*/
+    /*implementation group: 'org.bitcoinj', name: 'bitcoinj-core', version: '0.14.7'*/
+    implementation group: 'com.google.protobuf', name: 'protobuf-java', version: '3.6.0'
+    implementation group: 'com.google.guava', name: 'guava', version: '25.1-android'
+    implementation group: 'com.madgag.spongycastle', name: 'prov', version: '1.58.0.0'
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+}

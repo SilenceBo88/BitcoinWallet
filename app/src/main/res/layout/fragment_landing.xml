@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+    <variable
+        name="fragmentManager"
+        type="android.support.v4.app.FragmentManager"/>
+
+    <variable
+        name="viewModel"
+        type="com.lrkj.bitcoinwallet.major.landing.LandingViewModel"/>
+
+  </data>
+
+  <android.support.constraint.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:splitMotionEvents="false"
+      tools:context=".landing.LandingFragment">
+
+    <!--标题栏-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/new_btcwallet_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+
+      <!--文本-->
+      <TextView
+          style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:text="生成钱包"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/createWalletBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:onClick="@{() -> viewModel.goToCreateWalletPage(fragmentManager)}"
+        android:text="创建钱包"
+        android:textAllCaps="false"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/restoreWalletBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:onClick="@{() -> viewModel.goToRestoreWalletPage(fragmentManager)}"
+        android:text="导入钱包"
+        android:textAllCaps="false"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createWalletBtn" />
+
+  </android.support.constraint.ConstraintLayout>
+
+</layout>
