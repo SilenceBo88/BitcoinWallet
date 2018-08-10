@@ -34,7 +34,7 @@
       <android.support.design.widget.AppBarLayout
           android:id="@+id/appBar"
           android:layout_width="match_parent"
-          android:layout_height="250dp"
+          android:layout_height="240dp"
           app:hideTitleWhenCollapsed="@{viewModel.shouldHideTitleWhenCollapsed}"
           app:offsetChangedListener="@{viewModel}">
 
@@ -45,7 +45,8 @@
             android:layout_height="match_parent"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:titleEnabled="false">
 
           <!--背景图片-->
           <ImageView
@@ -58,7 +59,9 @@
           <!--显示内容-->
           <RelativeLayout
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              app:layout_collapseMode="parallax"
+              app:layout_collapseParallaxMultiplier="0.2">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/head_img"
@@ -68,7 +71,7 @@
                 android:layout_marginTop="50dp"/>
 
             <TextView
-                android:id="@+id/btcwallet_address"
+                android:id="@+id/address"
                 android:gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:singleLine="true"
@@ -78,7 +81,21 @@
                 android:layout_below="@+id/head_img"
                 android:textColor="#FFF"
                 android:ellipsize="middle"
+                android:layout_marginTop="10dp"
                 android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.balance}"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/address"
+                android:layout_marginTop="200dp"
+                android:layout_marginLeft="20dp"
+                tools:text="123.456 BTC"/>
 
           </RelativeLayout>
 
@@ -87,6 +104,7 @@
               android:id="@+id/toolbar"
               android:layout_width="match_parent"
               android:layout_height="?attr/actionBarSize"
+              android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
               app:layout_collapseMode="pin"
               app:title="@{viewModel.balance}"/>
 
@@ -94,7 +112,7 @@
 
       </android.support.design.widget.AppBarLayout>
 
-      <!--滚动列表-->
+      <!--&lt;!&ndash;滚动列表&ndash;&gt;
       <android.support.v4.widget.NestedScrollView
           android:layout_width="match_parent"
           android:layout_height="match_parent"
@@ -106,18 +124,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-      </android.support.v4.widget.NestedScrollView>
+      </android.support.v4.widget.NestedScrollView>-->
 
-      <!--<com.hsy.simplebitcoinwallet.main.ScrollChildSwipeRefreshLayout
+      <com.lrkj.bitcoinwallet.major.main.ScrollChildSwipeRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onRefresh="@{viewModel}"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:refreshing="@{viewModel.showProgressBar}"
-        app:scrollUpChild="@{txsContainer}"
-        app:size="@{SwipeRefreshLayout.LARGE}">
 
+        app:size="@{SwipeRefreshLayout.LARGE}">
+        <!--app:scrollUpChild="@{txsContainer}"-->
         <android.support.v4.widget.NestedScrollView
           android:id="@+id/scrollView"
           android:layout_width="match_parent"
@@ -139,19 +157,19 @@
               android:progress="@{viewModel.syncProgress}"
               android:visibility="@{viewModel.syncProgress >= 100 ? View.GONE : View.VISIBLE}"/>
 
-            <android.support.v7.widget.RecyclerView
+            <!--<android.support.v7.widget.RecyclerView
               android:id="@+id/txsContainer"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:paddingLeft="10dp"
               android:paddingRight="10dp"
-              app:items="@{viewModel.items}"/>
+              app:items="@{viewModel.items}"/>-->
 
           </LinearLayout>
 
         </android.support.v4.widget.NestedScrollView>
 
-      </com.hsy.simplebitcoinwallet.main.ScrollChildSwipeRefreshLayout>-->
+      </com.lrkj.bitcoinwallet.major.main.ScrollChildSwipeRefreshLayout>
 
       <!--<android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"

@@ -33,7 +33,7 @@ import static android.support.constraint.Constraints.TAG;
 public class MainViewModel extends BaseViewModel implements CompletableObserver, BtcWallet.ReceivedTxListener, BtcWallet.SentTxListener, OnOffsetChangedListener{
 
     @NonNull
-    private String balance = "0.00000000";
+    private String balance = "BTC: 0.00000000";
 
     @NonNull
     private String address = "666666666666666666";
@@ -95,6 +95,7 @@ public class MainViewModel extends BaseViewModel implements CompletableObserver,
                 .subscribe(this::setSyncProgress, Throwable::printStackTrace, () -> {
                     setSyncProgress(100);
                     setBalance(btcWalletManager.getCurrent().getBalance());
+                    setAddress(btcWalletManager.getCurrent().getAddress());
                     loadTxs();
                 });
     }
@@ -175,7 +176,7 @@ public class MainViewModel extends BaseViewModel implements CompletableObserver,
     @NonNull
     @Bindable
     public String getBalance() {
-        return "BTC: " + balance;
+        return balance;
     }
 
     private void setBalance(@NonNull String balance) {
@@ -229,7 +230,7 @@ public class MainViewModel extends BaseViewModel implements CompletableObserver,
     /**
      * The databinding method for binding the listener of {@link AppBarLayout}.
      */
-    @BindingAdapter(value = {"app:hideTitleWhenCollapsed", "app:offsetChangedListener"})
+    @BindingAdapter(value = {"hideTitleWhenCollapsed", "offsetChangedListener"})
     public static void setHideTitleWhenCollapsed(@NonNull AppBarLayout appBarLayout, boolean isBinding, @NonNull OnOffsetChangedListener listener) {
         if (isBinding) {
             appBarLayout.addOnOffsetChangedListener(listener);

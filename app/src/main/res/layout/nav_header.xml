@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/nav_header"
     android:layout_width="match_parent"
     android:layout_height="180dp"
@@ -20,11 +20,10 @@
         android:layout_width="wrap_content"
         android:singleLine="true"
         android:layout_height="wrap_content"
-        android:text="6666666666666666666"
-        android:ems="8"
+        android:text="比特币: 一种基于区块链的电子货币"
         android:layout_below="@+id/head_img"
         android:textColor="#FFF"
-        android:ellipsize="middle"
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

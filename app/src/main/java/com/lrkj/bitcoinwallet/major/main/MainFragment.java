@@ -102,8 +102,8 @@ public class MainFragment extends BaseView<MainViewModel, FragmentMainBinding> {
 
         super.onActivityCreated(savedInstanceState);
         setUpActionBar();
-        /*setupListAdapter();
         setupRefreshLayout();
+        /*setupListAdapter();
         txListAdapter.notifyDataSetChanged();
         final RecyclerView.Adapter adapter = binding.txsContainer.getAdapter();
         if (viewModel != null && adapter != null) {
@@ -155,9 +155,9 @@ public class MainFragment extends BaseView<MainViewModel, FragmentMainBinding> {
         }
 
         ViewCompat.setNestedScrollingEnabled(binding.txsContainer, false);
-    }*/
-
-    /*private void setupRefreshLayout() {
+    }
+*/
+    private void setupRefreshLayout() {
         final SwipeRefreshLayout swipeRefreshLayout = binding.refreshLayout;
         final Activity activity = getActivity();
         if (activity != null) {
@@ -167,7 +167,7 @@ public class MainFragment extends BaseView<MainViewModel, FragmentMainBinding> {
                     ContextCompat.getColor(activity, R.color.colorPrimaryDark)
             );
         }
-    }*/
+    }
 
     /*@Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {

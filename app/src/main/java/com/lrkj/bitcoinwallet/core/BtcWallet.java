@@ -63,7 +63,7 @@ public class BtcWallet {
     @NonNull
     public String getBalance() {
         Log.d(TAG, "getBalance: ");
-        return walletAppKit.wallet().getBalance().toFriendlyString().replace(" BTC", " ");
+        return "BTC: " + walletAppKit.wallet().getBalance().toFriendlyString().replace(" BTC", " ");
     }
 
     /**
