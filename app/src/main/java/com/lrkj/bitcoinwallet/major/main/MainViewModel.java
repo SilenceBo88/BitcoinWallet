@@ -228,7 +228,7 @@ public class MainViewModel extends BaseViewModel implements CompletableObserver,
     }
 
     /**
-     * The databinding method for binding the listener of {@link AppBarLayout}.
+     * AppBarLayout的监听器
      */
     @BindingAdapter(value = {"hideTitleWhenCollapsed", "offsetChangedListener"})
     public static void setHideTitleWhenCollapsed(@NonNull AppBarLayout appBarLayout, boolean isBinding, @NonNull OnOffsetChangedListener listener) {

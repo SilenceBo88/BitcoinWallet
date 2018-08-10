@@ -34,6 +34,7 @@ import com.lrkj.bitcoinwallet.R;
 import com.lrkj.bitcoinwallet.base.BaseView;
 import com.lrkj.bitcoinwallet.core.BtcWalletManager;
 import com.lrkj.bitcoinwallet.databinding.FragmentMainBinding;
+import com.lrkj.bitcoinwallet.major.main.tx.TxListAdapter;
 import com.lrkj.bitcoinwallet.util.ActivityUtils;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class MainFragment extends BaseView<MainViewModel, FragmentMainBinding> {
     @NonNull
     private static final String EXPORT_DIALOG_TAG = "EXPORT_TO_MNEMONIC";
 
-    /*private TxListAdapter txListAdapter;*/
+    private TxListAdapter txListAdapter;
 
     private DrawerLayout drawerLayout;
 
@@ -103,13 +104,12 @@ public class MainFragment extends BaseView<MainViewModel, FragmentMainBinding> {
         super.onActivityCreated(savedInstanceState);
         setUpActionBar();
         setupRefreshLayout();
-        /*setupListAdapter();
+        setupListAdapter();
         txListAdapter.notifyDataSetChanged();
         final RecyclerView.Adapter adapter = binding.txsContainer.getAdapter();
         if (viewModel != null && adapter != null) {
             viewModel.start(adapter);
-        }*/
-        viewModel.start(null);
+        }
     }
 
     public static void addToActivity(@NonNull FragmentManager fragmentManager, @NonNull BtcWalletManager btcWalletManager) {
@@ -146,7 +146,7 @@ public class MainFragment extends BaseView<MainViewModel, FragmentMainBinding> {
         return true;
     }
 
-    /*private void setupListAdapter() {
+    private void setupListAdapter() {
         final Context context = getContext();
         if (context != null) {
             binding.txsContainer.setLayoutManager(new LinearLayoutManager(context));
@@ -156,7 +156,6 @@ public class MainFragment extends BaseView<MainViewModel, FragmentMainBinding> {
 
         ViewCompat.setNestedScrollingEnabled(binding.txsContainer, false);
     }
-*/
     private void setupRefreshLayout() {
         final SwipeRefreshLayout swipeRefreshLayout = binding.refreshLayout;
         final Activity activity = getActivity();

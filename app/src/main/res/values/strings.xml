@@ -8,4 +8,14 @@
 
     <string name="main_tx_received">接收交易</string>
     <string name="main_tx_sent">发送交易</string>
+    <string name="main_sync_progress_format">sync: %d/100</string>
+    <string name="main_tx_hash_format">交易号: %s</string>
+    <string name="main_tx_status_format">状态: %1$s (%2$d 确认)</string>
+    <string name="main_from_address_format">来自: %s</string>
+    <string name="main_to_address_format">发送到: %s</string>
+    <string name="main_fee_format">手续费: %s</string>
+
+    <string name="explore_testnet_url" translatable="false">https://testnet.blockchain.info</string>
+    <string name="explore_mainnet_url" translatable="false">https://blockchain.info</string>
+
 </resources>

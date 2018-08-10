@@ -157,13 +157,13 @@
               android:progress="@{viewModel.syncProgress}"
               android:visibility="@{viewModel.syncProgress >= 100 ? View.GONE : View.VISIBLE}"/>
 
-            <!--<android.support.v7.widget.RecyclerView
+            <android.support.v7.widget.RecyclerView
               android:id="@+id/txsContainer"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:paddingLeft="10dp"
               android:paddingRight="10dp"
-              app:items="@{viewModel.items}"/>-->
+              app:items="@{viewModel.items}"/>
 
           </LinearLayout>
 
