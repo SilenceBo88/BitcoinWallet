@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+    <import type="com.lrkj.bitcoinwallet.major.landing.LandingActivity"/>
+
+    <variable
+      name="fragmentManager"
+      type="android.support.v4.app.FragmentManager"/>
+
+    <variable
+      name="viewModel"
+      type="com.lrkj.bitcoinwallet.major.restore.RestoreWalletFromSeedViewModel"/>
+
+  </data>
+
+  <android.support.constraint.ConstraintLayout
+      android:id="@+id/fragment_import_wallet"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:splitMotionEvents="false"
+      tools:context=".landing.create.CreateWalletFromSeedFragment">
+
+    <!--标题栏-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/import_btcwallet_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+
+      <!--返回按钮-->
+      <ImageButton
+          android:id="@+id/import_btcwallet_back"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:background="@color/colorPrimary"
+          android:src="@drawable/btn_pre"
+          android:onClick="@{() -> viewModel.backPage((LandingActivity) context)}"
+          />
+
+      <!--文本-->
+      <TextView
+          style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:text="导入钱包"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <!--表单-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="70dp">
+
+
+      <EditText
+          android:id="@+id/import_btcwallet_seed"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="10dp"
+          android:layout_marginRight="10dp"
+          android:background="@drawable/edit_text_rectangle"
+          android:hint="助记词"
+          android:inputType="textMultiLine"
+          android:gravity="top"
+          android:singleLine="false"
+          android:maxLines="5"
+          android:text="anger swamp parent shell saddle tip subway bubble emerge hawk find fan insane nothing medal much absurd six autumn magnet tortoise bone menu piano"/>
+
+      <EditText
+          android:id="@+id/import_btcwallet_pass"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="10dp"
+          android:layout_marginRight="10dp"
+          android:ems="20"
+          android:maxLines="2"
+          android:hint="钱包密码"
+          android:inputType="textPassword"/>
+
+      <EditText
+          android:id="@+id/import_btcwallet_repass"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="10dp"
+          android:layout_marginRight="10dp"
+          android:ems="20"
+          android:maxLines="2"
+          android:hint="重复密码"
+          android:inputType="textPassword"/>
+
+      <android.support.v7.widget.AppCompatButton
+          android:id="@+id/confirmBtn"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="40dp"
+          android:enabled="@{viewModel.confirmBtnEnabledImport}"
+          android:onClick="@{() -> viewModel.restore((LandingActivity) context)}"
+          android:text="导入钱包"
+          android:textAllCaps="false"
+          android:layout_margin="10dp"
+          android:textColor="#FFF"
+          android:background="@color/colorPrimary"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"/>
+
+    </LinearLayout>
+
+    <android.support.v4.widget.ContentLoadingProgressBar
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="200dp"
+        android:visibility="@{viewModel.progressVisibilityImport}"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+  </android.support.constraint.ConstraintLayout>
+
+</layout>

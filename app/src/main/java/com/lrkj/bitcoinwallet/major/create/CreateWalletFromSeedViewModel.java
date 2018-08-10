@@ -90,6 +90,10 @@ public class CreateWalletFromSeedViewModel extends BaseViewModel {
         }
     }
 
+    /**
+     * 返回生成钱包方式选择页面
+     * @param context
+     */
     public void backPage(LandingActivity context){
         final LandingFragment fragment = LandingFragment.newInstance();
         fragment.setViewModel(new LandingViewModel(btcWalletManager));
@@ -142,6 +146,12 @@ public class CreateWalletFromSeedViewModel extends BaseViewModel {
         notifyPropertyChanged(BR.progressVisibility);
     }
 
+    /**
+     * 校验密码
+     * @param pass
+     * @param rePass
+     * @return
+     */
     private boolean checkPass(String pass, String rePass){
         if (pass.isEmpty() || rePass.isEmpty()){
             Toast.makeText(MyApplication.getContext(), "密码不为空", Toast.LENGTH_SHORT).show();

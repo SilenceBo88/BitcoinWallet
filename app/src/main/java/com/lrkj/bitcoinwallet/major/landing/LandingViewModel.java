@@ -8,6 +8,8 @@ import com.lrkj.bitcoinwallet.base.BaseViewModel;
 import com.lrkj.bitcoinwallet.core.BtcWalletManager;
 import com.lrkj.bitcoinwallet.major.create.CreateWalletFromSeedFragment;
 import com.lrkj.bitcoinwallet.major.create.CreateWalletFromSeedViewModel;
+import com.lrkj.bitcoinwallet.major.restore.RestoreWalletFromSeedFragment;
+import com.lrkj.bitcoinwallet.major.restore.RestoreWalletFromSeedViewModel;
 import com.lrkj.bitcoinwallet.util.ActivityUtils;
 
 public class LandingViewModel extends BaseViewModel {
@@ -32,8 +34,8 @@ public class LandingViewModel extends BaseViewModel {
      * 启动导入助记词页面
      */
     public void goToRestoreWalletPage(@NonNull FragmentManager fragmentManager) {
-       /* final RestoreWalletFromSeedFragment fragment = RestoreWalletFromSeedFragment.newInstance();
+        final RestoreWalletFromSeedFragment fragment = RestoreWalletFromSeedFragment.newInstance();
         fragment.setViewModel(new RestoreWalletFromSeedViewModel(btcWalletManager));
-        ActivityUtils.replaceAndKeepOld(fragmentManager, fragment, R.id.contentFrame);*/
+        ActivityUtils.replaceAndKeepOld(fragmentManager, fragment, R.id.contentFrame);
     }
 }

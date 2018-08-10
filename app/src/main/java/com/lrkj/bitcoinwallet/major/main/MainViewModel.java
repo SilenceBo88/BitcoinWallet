@@ -36,7 +36,7 @@ public class MainViewModel extends BaseViewModel implements CompletableObserver,
     private String balance = "BTC: 0.00000000";
 
     @NonNull
-    private String address = "666666666666666666";
+    private String address = "";
 
     private int syncProgress = 0;
 
