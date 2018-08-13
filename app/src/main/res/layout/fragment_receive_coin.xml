@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+    <import type="android.app.Activity"/>
+
+    <variable
+        name="resImgId"
+        type="int"/>
+
+    <variable
+      name="fragmentManager"
+      type="android.support.v4.app.FragmentManager"/>
+
+    <variable
+      name="viewModel"
+      type="com.lrkj.bitcoinwallet.major.receive.ReceiveCoinViewModel"/>
+
+  </data>
+
+  <android.support.constraint.ConstraintLayout
+      android:id="@+id/fragment_import_wallet"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:splitMotionEvents="false"
+      tools:context=".landing.create.CreateWalletFromSeedFragment">
+
+    <!--标题栏-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/import_btcwallet_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+
+      <!--返回按钮-->
+      <ImageButton
+          android:id="@+id/import_btcwallet_back"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:background="@color/colorPrimary"
+          android:src="@drawable/btn_pre"
+          android:onClick="@{() -> viewModel.back(fragmentManager)}"
+          />
+
+      <!--文本-->
+      <TextView
+          style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:text="接收比特币"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <!--表单-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="70dp">
+
+
+      <TextView
+          android:id="@+id/address_receive"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="100dp"
+          android:layout_marginLeft="40dp"
+          android:layout_marginRight="40dp"
+          android:ems="30"
+          android:singleLine="true"
+          android:text="@{viewModel.address}"/>
+
+      <android.support.v7.widget.AppCompatButton
+          android:id="@+id/copyBtn"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="40dp"
+          android:text="复制地址"
+          android:textAllCaps="false"
+          android:layout_margin="10dp"
+          android:textColor="#FFF"
+          android:background="@color/colorPrimary"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"/>
+
+    </LinearLayout>
+
+  </android.support.constraint.ConstraintLayout>
+
+</layout>

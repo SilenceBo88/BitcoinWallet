@@ -18,4 +18,11 @@
     <string name="explore_testnet_url" translatable="false">https://testnet.blockchain.info</string>
     <string name="explore_mainnet_url" translatable="false">https://blockchain.info</string>
 
+    <string name="send_coin_send_done">发送完成</string>
+    <string name="send_coin_failed">发送失败</string>
+    <string name="send_coin_invalid_to_address">交易地址有误</string>
+    <string name="send_coin_not_enough_balance">余额不足</string>
+    <string name="send_coin_invalid_amount">校验账户</string>
+    <string name="send_coin_invalid_fee">手续费不足</string>
+
 </resources>

@@ -22,6 +22,7 @@ import com.lrkj.bitcoinwallet.major.landing.LandingFragment;
 import com.lrkj.bitcoinwallet.major.landing.LandingViewModel;
 import com.lrkj.bitcoinwallet.major.main.MainActivity;
 import com.lrkj.bitcoinwallet.util.ActivityUtils;
+import com.lrkj.bitcoinwallet.util.Keyboard;
 import com.lrkj.bitcoinwallet.util.MD5Utils;
 import com.lrkj.bitcoinwallet.util.SharedPreferencesUtils;
 
@@ -70,11 +71,12 @@ public class CreateWalletFromSeedViewModel extends BaseViewModel {
         boolean flag = checkPass(newPass.getText().toString(), newRePass.getText().toString());
 
         if (flag){
-            //关闭键盘
+            /*//关闭键盘
             InputMethodManager imm = (InputMethodManager)activity.getSystemService(INPUT_METHOD_SERVICE);
             if(imm != null) {
                 imm.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(),0);
-            }
+            }*/
+            Keyboard.hideSoftKeyboard(activity);
             setConfirmBtnEnabled(false);
             setProgressVisibility(VISIBLE);
             createDisposable = btcWalletManager.create(mnemonic)

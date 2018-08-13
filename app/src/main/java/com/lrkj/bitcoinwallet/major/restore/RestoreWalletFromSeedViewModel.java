@@ -23,6 +23,7 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import com.lrkj.bitcoinwallet.BR;
 import com.lrkj.bitcoinwallet.util.ActivityUtils;
+import com.lrkj.bitcoinwallet.util.Keyboard;
 import com.lrkj.bitcoinwallet.util.MD5Utils;
 import com.lrkj.bitcoinwallet.util.SharedPreferencesUtils;
 
@@ -71,11 +72,11 @@ public class RestoreWalletFromSeedViewModel extends BaseViewModel {
 
       if (flag) {
           //关闭键盘
-          InputMethodManager imm = (InputMethodManager) activity.getSystemService(INPUT_METHOD_SERVICE);
+          /*InputMethodManager imm = (InputMethodManager) activity.getSystemService(INPUT_METHOD_SERVICE);
           if (imm != null) {
               imm.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(), 0);
-          }
-
+          }*/
+          Keyboard.hideSoftKeyboard(activity);
           setConfirmBtnEnabledImport(false);
           setProgressVisibilityImport(VISIBLE);
           restoreDisposable = btcWalletManager.create(mnemonic, creationTimeSecond)

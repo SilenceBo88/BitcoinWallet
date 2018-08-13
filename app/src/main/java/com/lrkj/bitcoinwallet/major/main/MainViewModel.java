@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.AppBarLayout.OnOffsetChangedListener;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +20,11 @@ import com.lrkj.bitcoinwallet.base.BaseViewModel;
 import com.lrkj.bitcoinwallet.core.BtcTx;
 import com.lrkj.bitcoinwallet.core.BtcWallet;
 import com.lrkj.bitcoinwallet.core.BtcWalletManager;
+import com.lrkj.bitcoinwallet.major.receive.ReceiveCoinFragment;
+import com.lrkj.bitcoinwallet.major.receive.ReceiveCoinViewModel;
+import com.lrkj.bitcoinwallet.major.send.SendCoinFragment;
+import com.lrkj.bitcoinwallet.major.send.SendCoinViewModel;
+import com.lrkj.bitcoinwallet.util.ActivityUtils;
 import com.lrkj.bitcoinwallet.util.WalletUtils;
 import com.lrkj.bitcoinwallet.BR;
 
@@ -66,11 +72,20 @@ public class MainViewModel extends BaseViewModel implements CompletableObserver,
     /**
      * 启动发送交易页面
      */
-    /*public void launchSendCoinPage(@NonNull FragmentManager fragmentManager) {
+    public void launchSendCoinPage(@NonNull FragmentManager fragmentManager) {
         final SendCoinFragment fragment = SendCoinFragment.newInstance();
         fragment.setViewModel(new SendCoinViewModel(btcWalletManager));
         ActivityUtils.replaceAndKeepOld(fragmentManager, fragment, R.id.contentFrame);
-    }*/
+    }
+
+    /**
+     * 启动接收交易页面
+     */
+    public void launchReceiveCoinPage(@NonNull FragmentManager fragmentManager) {
+        final ReceiveCoinFragment fragment = ReceiveCoinFragment.newInstance();
+        fragment.setViewModel(new ReceiveCoinViewModel(btcWalletManager, getAddress()));
+        ActivityUtils.replaceAndKeepOld(fragmentManager, fragment, R.id.contentFrame);
+    }
 
     @NonNull
     @Bindable
