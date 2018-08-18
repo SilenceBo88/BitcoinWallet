@@ -29,8 +29,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.lrkj.bitcoinwallet.MyApplication;
@@ -41,9 +39,13 @@ import com.lrkj.bitcoinwallet.databinding.FragmentMainBinding;
 import com.lrkj.bitcoinwallet.major.landing.LandingActivity;
 import com.lrkj.bitcoinwallet.major.main.tx.TxListAdapter;
 import com.lrkj.bitcoinwallet.util.ActivityUtils;
-import com.lrkj.bitcoinwallet.util.FileUtils;
+import com.uuzuche.lib_zxing.activity.CaptureActivity;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
+import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import java.util.ArrayList;
+
+import static android.app.Activity.RESULT_OK;
 
 public class MainFragment extends BaseView<MainViewModel, FragmentMainBinding> {
 
@@ -84,6 +86,7 @@ public class MainFragment extends BaseView<MainViewModel, FragmentMainBinding> {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
+        ZXingLibrary.initDisplayOpinion(getActivity());
         navigationView = ((MainActivity) getActivity()).findViewById(R.id.nav_view);
         //菜单项点击事件
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -91,9 +94,10 @@ public class MainFragment extends BaseView<MainViewModel, FragmentMainBinding> {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.nav_scan:
-                        Toast.makeText(MyApplication.getContext(), "扫一扫", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getActivity(), CaptureActivity.class);
+                        startActivityForResult(intent, 2);
                         break;
-                    case R.id.nav_wallet:
+                    case R.id.nav_new:
                         //消息提示
                         AlertDialog dialog = new AlertDialog.Builder((MainActivity) getActivity())
                                 .setTitle("提示:")//设置对话框的标题
@@ -116,8 +120,8 @@ public class MainFragment extends BaseView<MainViewModel, FragmentMainBinding> {
                                 }).create();
                         dialog.show();
                         break;
-                    case R.id.nav_import:
-                        Toast.makeText(MyApplication.getContext(), "导入", Toast.LENGTH_SHORT).show();
+                    case R.id.nav_save:
+                        Toast.makeText(MyApplication.getContext(), "备份助记词", Toast.LENGTH_SHORT).show();
                         break;
                     default:
                         break;
@@ -213,6 +217,25 @@ public class MainFragment extends BaseView<MainViewModel, FragmentMainBinding> {
         return super.onOptionsItemSelected(item);
     }*/
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 2) {
+            //处理扫描结果（在界面上显示）
+            if (null != data) {
+                Bundle bundle = data.getExtras();
+                if (bundle == null) {
+                    return;
+                }
+                if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
+                    String result = bundle.getString(CodeUtils.RESULT_STRING);
+                    Toast.makeText(getActivity(), "解析结果:" + result, Toast.LENGTH_LONG).show();
+                } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
+                    Toast.makeText(getActivity(), "解析二维码失败", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
     /**
      * Launch the create wallet page.
      */
@@ -223,6 +246,9 @@ public class MainFragment extends BaseView<MainViewModel, FragmentMainBinding> {
                     .show(activity.getSupportFragmentManager(), EXPORT_DIALOG_TAG);
         }
     }*/
+
+
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

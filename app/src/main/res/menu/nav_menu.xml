@@ -3,15 +3,15 @@
 <group android:checkableBehavior="single">
     <item
         android:id="@+id/nav_scan"
-        android:icon="@drawable/btn_pre"
+        android:icon="@drawable/nav_scan"
         android:title="扫一扫" />
     <item
-        android:id="@+id/nav_wallet"
-        android:icon="@drawable/btn_pre"
-        android:title="创建钱包" />
+        android:id="@+id/nav_new"
+        android:icon="@drawable/nav_new"
+        android:title="生成新钱包" />
     <item
-        android:id="@+id/nav_import"
-        android:icon="@drawable/btn_pre"
-        android:title="导入钱包" />
+        android:id="@+id/nav_save"
+        android:icon="@drawable/nav_save"
+        android:title="备份助记词" />
 </group>
 </menu>

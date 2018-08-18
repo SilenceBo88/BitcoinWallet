@@ -49,9 +49,4 @@ public class ReceiveCoinViewModel extends BaseViewModel {
         this.address = address;
     }
 
-   /* public void createQR(@NonNull Activity activity){
-        ImageView qrImageView = activity.findViewById(R.id.QR);
-        Bitmap mBitmap = QRCodeUtils.createQRCodeBitmap(address, 480, 480);
-        qrImageView.setImageBitmap(mBitmap);
-    }*/
 }

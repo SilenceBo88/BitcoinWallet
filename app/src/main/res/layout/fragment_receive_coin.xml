@@ -70,17 +70,27 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
-                android:layout_marginTop="100dp"
-                android:ems="30"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp"
+                android:ems="40"
                 android:singleLine="true"
-                android:text="@{viewModel.address}" />
+                android:textSize="13sp"
+                android:text="@{viewModel.address}"
+                android:layout_gravity="center"
+                tools:text="66666666666666666666666"/>
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/QR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                tools:src="@drawable/ic_launcher_background" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/copyBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_marginBottom="40dp"
+                android:layout_margin="20dp"
                 android:background="@color/colorPrimary"
                 android:text="复制地址"
                 android:textAllCaps="false"

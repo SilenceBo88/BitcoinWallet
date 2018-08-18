@@ -1,7 +1,9 @@
 package com.lrkj.bitcoinwallet.major.main;
 
+import android.app.Activity;
 import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -12,6 +14,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.lrkj.bitcoinwallet.Constants;
 import com.lrkj.bitcoinwallet.MyApplication;
@@ -25,6 +28,7 @@ import com.lrkj.bitcoinwallet.major.receive.ReceiveCoinViewModel;
 import com.lrkj.bitcoinwallet.major.send.SendCoinFragment;
 import com.lrkj.bitcoinwallet.major.send.SendCoinViewModel;
 import com.lrkj.bitcoinwallet.util.ActivityUtils;
+import com.lrkj.bitcoinwallet.util.QRCodeUtils;
 import com.lrkj.bitcoinwallet.util.WalletUtils;
 import com.lrkj.bitcoinwallet.BR;
 
