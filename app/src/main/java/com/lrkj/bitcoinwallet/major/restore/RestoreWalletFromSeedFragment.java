@@ -17,7 +17,8 @@ import static com.lrkj.bitcoinwallet.BR.viewModel;
 
 public class RestoreWalletFromSeedFragment extends BaseView<RestoreWalletFromSeedViewModel, FragmentRestoreWalletFromSeedBinding> {
 
-    public RestoreWalletFromSeedFragment() {}
+    public RestoreWalletFromSeedFragment() {
+    }
 
     @NonNull
     public static RestoreWalletFromSeedFragment newInstance() {

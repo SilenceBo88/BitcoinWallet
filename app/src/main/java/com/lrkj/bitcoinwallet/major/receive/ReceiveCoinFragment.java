@@ -23,9 +23,10 @@ import static android.support.v4.content.ContextCompat.getSystemService;
 
 public class ReceiveCoinFragment extends BaseView<ReceiveCoinViewModel, FragmentReceiveCoinBinding> {
 
-    public ReceiveCoinFragment(){}
+    public ReceiveCoinFragment() {
+    }
 
-    public static ReceiveCoinFragment newInstance(){
+    public static ReceiveCoinFragment newInstance() {
         return new ReceiveCoinFragment();
     }
 
@@ -50,9 +51,9 @@ public class ReceiveCoinFragment extends BaseView<ReceiveCoinViewModel, Fragment
             @Override
             public void onClick(View view) {
                 //获取剪贴板，并把内容设置在剪切板
-                ClipboardManager cbm=(ClipboardManager)getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipboardManager cbm = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
                 cbm.setText(mContent.getText().toString().replaceAll("\\s*", ""));
-                Toast.makeText(MyApplication.getContext(),"已经复制",Toast.LENGTH_LONG).show();
+                Toast.makeText(MyApplication.getContext(), "已经复制", Toast.LENGTH_LONG).show();
             }
         });
     }

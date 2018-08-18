@@ -1,127 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-  <data>
+    <data>
 
-    <import type="android.view.View"/>
+        <import type="android.view.View" />
 
-    <import type="android.support.v7.app.AppCompatActivity"/>
+        <import type="android.support.v7.app.AppCompatActivity" />
 
-    <variable
-      name="viewModel"
-      type="com.lrkj.bitcoinwallet.major.main.tx.TxItemViewModel"/>
+        <variable
+            name="viewModel"
+            type="com.lrkj.bitcoinwallet.major.main.tx.TxItemViewModel" />
 
-  </data>
+    </data>
 
-  <android.support.v7.widget.CardView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:splitMotionEvents="false"
-    android:layout_margin="4dp"
-    app:cardCornerRadius="10dp"
-    android:onClick="@{() -> viewModel.launchExplore(context)}">
-
-    <android.support.constraint.ConstraintLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:splitMotionEvents="false">
-
-      <TextView
-        android:id="@+id/time"
-        android:textStyle="bold"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:gravity="start"
-        android:text="@{viewModel.time}"
-        android:textAlignment="textStart"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="time"/>
+        android:layout_margin="4dp"
+        android:onClick="@{() -> viewModel.launchExplore(context)}"
+        android:splitMotionEvents="false"
+        app:cardCornerRadius="10dp">
 
-      <TextView
-        android:id="@+id/value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:text="@{viewModel.value}"
-        android:textAlignment="viewStart"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:textColorRes="@{viewModel.valueTextColor}"
-        tools:text="value"/>
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:splitMotionEvents="false">
 
-      <TextView
-        android:id="@+id/status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:text="@{String.format(@string/main_tx_status_format, viewModel.txStatus, viewModel.currentConfirmation)}"
-        android:textAlignment="viewStart"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/time"
-        tools:text="status: BUILDING"/>
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:gravity="start"
+                android:text="@{viewModel.time}"
+                android:textAlignment="textStart"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="time" />
 
-      <TextView
-        android:id="@+id/txHash"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:text="@{String.format(@string/main_tx_hash_format, viewModel.txHash)}"
-        android:textAlignment="textStart"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/status"
-        tools:text="tx hash"/>
+            <TextView
+                android:id="@+id/value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@{viewModel.value}"
+                android:textAlignment="viewStart"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:textColorRes="@{viewModel.valueTextColor}"
+                tools:text="value" />
 
-      <TextView
-        android:id="@+id/fee"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:text="@{String.format(@string/main_fee_format, viewModel.fee)}"
-        android:textAlignment="viewStart"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="12sp"
-        android:visibility="@{viewModel.feeVisibility}"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txHash"
-        tools:text="fee"/>
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@{String.format(@string/main_tx_status_format, viewModel.txStatus, viewModel.currentConfirmation)}"
+                android:textAlignment="viewStart"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/time"
+                tools:text="status: BUILDING" />
 
-      <TextView
-        android:id="@+id/fromAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:text="@{String.format(@string/main_from_address_format, viewModel.address)}"
-        android:textAlignment="viewStart"
-        android:textSize="12sp"
-        android:visibility="@{viewModel.fromVisibility}"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fee"
-        tools:text="from address"/>
+            <TextView
+                android:id="@+id/txHash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@{String.format(@string/main_tx_hash_format, viewModel.txHash)}"
+                android:textAlignment="textStart"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/status"
+                tools:text="tx hash" />
 
-      <TextView
-        android:id="@+id/toAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:text="@{String.format(@string/main_to_address_format, viewModel.address)}"
-        android:textAlignment="viewStart"
-        android:textSize="12sp"
-        android:visibility="@{viewModel.toVisibility}"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fee"
-        tools:text="to address"
-        tools:visibility="gone"/>
+            <TextView
+                android:id="@+id/fee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@{String.format(@string/main_fee_format, viewModel.fee)}"
+                android:textAlignment="viewStart"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="12sp"
+                android:visibility="@{viewModel.feeVisibility}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txHash"
+                tools:text="fee" />
 
-    </android.support.constraint.ConstraintLayout>
+            <TextView
+                android:id="@+id/fromAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@{String.format(@string/main_from_address_format, viewModel.address)}"
+                android:textAlignment="viewStart"
+                android:textSize="12sp"
+                android:visibility="@{viewModel.fromVisibility}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fee"
+                tools:text="from address" />
 
-  </android.support.v7.widget.CardView>
+            <TextView
+                android:id="@+id/toAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@{String.format(@string/main_to_address_format, viewModel.address)}"
+                android:textAlignment="viewStart"
+                android:textSize="12sp"
+                android:visibility="@{viewModel.toVisibility}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fee"
+                tools:text="to address"
+                tools:visibility="gone" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
 
 </layout>

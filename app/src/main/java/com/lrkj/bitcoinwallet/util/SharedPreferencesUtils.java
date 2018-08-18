@@ -12,6 +12,9 @@ import java.io.ObjectOutputStream;
 
 import static android.content.Context.MODE_PRIVATE;
 
+/**
+ * SharedPreferences存储工具类
+ */
 public class SharedPreferencesUtils {
 
     private static String TAG = "NewBTCWalletActivity";
@@ -44,6 +47,12 @@ public class SharedPreferencesUtils {
         }
     }
 
+    /**
+     * 获取对象
+     * @param context
+     * @param name
+     * @return
+     */
     public static Object getObject(Context context, String name){
         SharedPreferences sharedPreferences = context.getSharedPreferences(sharePath, MODE_PRIVATE);
         String studentString = sharedPreferences.getString(name, "");

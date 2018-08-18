@@ -5,7 +5,7 @@ import android.view.View;
 
 class BaseBindingViewHolder extends RecyclerView.ViewHolder {
 
-  BaseBindingViewHolder(View itemView) {
-    super(itemView);
-  }
+    BaseBindingViewHolder(View itemView) {
+        super(itemView);
+    }
 }

@@ -1,26 +1,20 @@
 package com.lrkj.bitcoinwallet.major.create;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
-import com.lrkj.bitcoinwallet.MyApplication;
 import com.lrkj.bitcoinwallet.R;
 import com.lrkj.bitcoinwallet.base.BaseView;
 import com.lrkj.bitcoinwallet.databinding.FragmentCreateWalletFromSeedBinding;
-import com.lrkj.bitcoinwallet.major.landing.LandingActivity;
-import com.lrkj.bitcoinwallet.major.main.MainActivity;
 
 public class CreateWalletFromSeedFragment extends BaseView<CreateWalletFromSeedViewModel, FragmentCreateWalletFromSeedBinding> {
 
-    public CreateWalletFromSeedFragment() {}
+    public CreateWalletFromSeedFragment() {
+    }
 
     public static CreateWalletFromSeedFragment newInstance() {
         return new CreateWalletFromSeedFragment();

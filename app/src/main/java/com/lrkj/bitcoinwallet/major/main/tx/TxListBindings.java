@@ -14,12 +14,11 @@ import java.util.List;
  */
 public class TxListBindings {
 
-
-  @BindingAdapter("items")
-  public static void setItems(@NonNull RecyclerView view, @NonNull List<BtcTx> items) {
-    TxListAdapter adapter = (TxListAdapter) view.getAdapter();
-    if (adapter != null) {
-      adapter.replaceData(items);
+    @BindingAdapter("items")
+    public static void setItems(@NonNull RecyclerView view, @NonNull List<BtcTx> items) {
+        TxListAdapter adapter = (TxListAdapter) view.getAdapter();
+        if (adapter != null) {
+            adapter.replaceData(items);
+        }
     }
-  }
 }

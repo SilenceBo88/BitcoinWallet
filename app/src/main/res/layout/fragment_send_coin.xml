@@ -1,119 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-  <data>
+    <data>
 
-    <import type="android.app.Activity"/>
+        <import type="android.app.Activity" />
 
-    <variable
-      name="fragmentManager"
-      type="android.support.v4.app.FragmentManager"/>
+        <variable
+            name="fragmentManager"
+            type="android.support.v4.app.FragmentManager" />
 
-    <variable
-      name="viewModel"
-      type="com.lrkj.bitcoinwallet.major.send.SendCoinViewModel"/>
+        <variable
+            name="viewModel"
+            type="com.lrkj.bitcoinwallet.major.send.SendCoinViewModel" />
 
-  </data>
+    </data>
 
-  <android.support.constraint.ConstraintLayout
-      android:id="@+id/fragment_import_wallet"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:splitMotionEvents="false"
-      tools:context=".landing.create.CreateWalletFromSeedFragment">
-
-    <!--标题栏-->
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/import_btcwallet_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
-
-      <!--返回按钮-->
-      <ImageButton
-          android:id="@+id/import_btcwallet_back"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:background="@color/colorPrimary"
-          android:src="@drawable/btn_pre"
-          android:onClick="@{() -> viewModel.back(fragmentManager)}"
-          />
-
-      <!--文本-->
-      <TextView
-          style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:text="发送比特币"/>
-
-    </android.support.v7.widget.Toolbar>
-
-    <!--表单-->
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/fragment_import_wallet"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="70dp">
+        android:splitMotionEvents="false"
+        tools:context=".landing.create.CreateWalletFromSeedFragment">
+
+        <!--标题栏-->
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/import_btcwallet_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <!--返回按钮-->
+            <ImageButton
+                android:id="@+id/import_btcwallet_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:onClick="@{() -> viewModel.back(fragmentManager)}"
+                android:src="@drawable/btn_pre" />
+
+            <!--文本-->
+            <TextView
+                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="发送比特币" />
+
+        </android.support.v7.widget.Toolbar>
+
+        <!--表单-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="70dp"
+            android:orientation="vertical">
 
 
-      <EditText
-          android:id="@+id/import_btcwallet_seed"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginLeft="10dp"
-          android:layout_marginRight="10dp"
-          android:hint="交易地址"
-          android:gravity="top"
-          android:singleLine="false"
-          android:text="@={viewModel.toAddress}"
-          android:maxLines="2"/>
+            <EditText
+                android:id="@+id/import_btcwallet_seed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="top"
+                android:hint="交易地址"
+                android:maxLines="2"
+                android:singleLine="false"
+                android:text="@={viewModel.toAddress}" />
 
-      <EditText
-          android:id="@+id/import_btcwallet_pass"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginLeft="10dp"
-          android:layout_marginRight="10dp"
-          android:ems="20"
-          android:maxLines="2"
-          android:text="@={viewModel.amount}"
-          android:hint="金额" />
+            <EditText
+                android:id="@+id/import_btcwallet_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:ems="20"
+                android:hint="金额"
+                android:maxLines="2"
+                android:text="@={viewModel.amount}" />
 
-      <EditText
-          android:id="@+id/import_btcwallet_repass"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginLeft="10dp"
-          android:layout_marginRight="10dp"
-          android:ems="20"
-          android:maxLines="2"
-          android:text="@={viewModel.fee}"
-          android:hint="手续费" />
+            <EditText
+                android:id="@+id/import_btcwallet_repass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:ems="20"
+                android:hint="手续费"
+                android:maxLines="2"
+                android:text="@={viewModel.fee}" />
 
-      <android.support.v7.widget.AppCompatButton
-          android:id="@+id/confirmBtn"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="40dp"
-          android:enabled="@{viewModel.confirmBtnEnabled}"
-          android:onClick="@{() -> viewModel.send(fragmentManager, (Activity) context)}"
-          android:text="发送"
-          android:textAllCaps="false"
-          android:layout_margin="10dp"
-          android:textColor="#FFF"
-          android:background="@color/colorPrimary"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_behavior="com.lrkj.bitcoinwallet.major.send.PushUpBehavior" />
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/confirmBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="40dp"
+                android:background="@color/colorPrimary"
+                android:enabled="@{viewModel.confirmBtnEnabled}"
+                android:onClick="@{() -> viewModel.send(fragmentManager, (Activity) context)}"
+                android:text="发送"
+                android:textAllCaps="false"
+                android:textColor="#FFF"
+                app:layout_behavior="com.lrkj.bitcoinwallet.major.send.PushUpBehavior"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    </LinearLayout>
+        </LinearLayout>
 
-  </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </layout>

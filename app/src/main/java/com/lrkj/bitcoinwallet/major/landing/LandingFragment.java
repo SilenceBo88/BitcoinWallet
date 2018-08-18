@@ -13,7 +13,8 @@ import com.lrkj.bitcoinwallet.databinding.FragmentLandingBinding;
 
 public class LandingFragment extends BaseView<LandingViewModel, FragmentLandingBinding> {
 
-    public LandingFragment() {}
+    public LandingFragment() {
+    }
 
     public static LandingFragment newInstance() {
         return new LandingFragment();

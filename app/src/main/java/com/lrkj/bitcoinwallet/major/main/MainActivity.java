@@ -26,6 +26,7 @@ public class MainActivity extends BaseActivity {
 
     /**
      * 启动新的活动,然后关闭上一个活动。
+     *
      * @param activity
      */
     public static void startAndFinishCurrent(@NonNull Activity activity) {

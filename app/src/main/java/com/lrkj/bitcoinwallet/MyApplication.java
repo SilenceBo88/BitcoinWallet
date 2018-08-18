@@ -3,7 +3,7 @@ package com.lrkj.bitcoinwallet;
 import android.app.Application;
 import android.content.Context;
 
-public class MyApplication extends Application{
+public class MyApplication extends Application {
 
     private static Context context;
 
@@ -13,7 +13,7 @@ public class MyApplication extends Application{
         context = getApplicationContext();
     }
 
-    public static Context getContext(){
+    public static Context getContext() {
         return context;
     }
 }

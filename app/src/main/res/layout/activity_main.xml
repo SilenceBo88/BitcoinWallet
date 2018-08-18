@@ -13,6 +13,6 @@
         android:splitMotionEvents="false"
         tools:context=".major.main.MainActivity"
         tools:ignore="MergeRootFrame"
-        tools:showIn="@layout/activity_main"/>
+        tools:showIn="@layout/activity_main" />
 
 </android.support.constraint.ConstraintLayout>

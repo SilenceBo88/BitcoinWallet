@@ -31,12 +31,13 @@ import com.lrkj.bitcoinwallet.BR;
 import io.reactivex.CompletableObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.support.constraint.Constraints.TAG;
 
-public class MainViewModel extends BaseViewModel implements CompletableObserver, BtcWallet.ReceivedTxListener, BtcWallet.SentTxListener, OnOffsetChangedListener{
+public class MainViewModel extends BaseViewModel implements CompletableObserver, BtcWallet.ReceivedTxListener, BtcWallet.SentTxListener, OnOffsetChangedListener {
 
     @NonNull
     private String balance = "BTC: 0.00000000";
@@ -95,6 +96,7 @@ public class MainViewModel extends BaseViewModel implements CompletableObserver,
 
     /**
      * 启动
+     *
      * @param adapter
      */
     void start(@NonNull RecyclerView.Adapter adapter) {
@@ -164,6 +166,7 @@ public class MainViewModel extends BaseViewModel implements CompletableObserver,
 
     /**
      * 接收交易
+     *
      * @param tx
      */
     @Override
@@ -175,6 +178,7 @@ public class MainViewModel extends BaseViewModel implements CompletableObserver,
 
     /**
      * 发送交易
+     *
      * @param tx
      */
     @Override

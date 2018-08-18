@@ -21,7 +21,7 @@ import java.util.List;
 import io.reactivex.Single;
 
 /**
- * 钱包的主要操作
+ * 钱包类的主要操作
  */
 public class BtcWallet {
 
@@ -31,7 +31,7 @@ public class BtcWallet {
     private final WalletAppKit walletAppKit;
 
     public BtcWallet(@NonNull WalletAppKit walletAppKit) {
-        Log.d(TAG, "BtcWallet: 构造");
+        Log.d(TAG, "BtcWallet: 创建对象");
         this.walletAppKit = walletAppKit;
     }
 
@@ -41,11 +41,9 @@ public class BtcWallet {
      */
     @NonNull
     public String getMnemonic() {
-        Log.d(TAG, "getMnemonic: ");
+        Log.d(TAG, "getMnemonic");
         try {
-            final List<String> mnemonic = walletAppKit.wallet()
-                    .getKeyChainSeed()
-                    .getMnemonicCode();
+            final List<String> mnemonic = walletAppKit.wallet().getKeyChainSeed().getMnemonicCode();
             if (mnemonic == null) {
                 throw new Resources.NotFoundException();
             } else {
@@ -62,7 +60,7 @@ public class BtcWallet {
      */
     @NonNull
     public String getBalance() {
-        Log.d(TAG, "getBalance: ");
+        Log.d(TAG, "getBalance");
         return "BTC: " + walletAppKit.wallet().getBalance().toFriendlyString().replace(" BTC", " ");
     }
 
@@ -72,10 +70,8 @@ public class BtcWallet {
      */
     @NonNull
     public String getAddress() {
-        Log.d(TAG, "getAddress: ");
-        return walletAppKit.wallet()
-                .currentReceiveAddress()
-                .toBase58();
+        Log.d(TAG, "getAddress");
+        return walletAppKit.wallet().currentReceiveAddress().toBase58();
     }
 
     /**
@@ -84,9 +80,8 @@ public class BtcWallet {
      */
     @NonNull
     public List<BtcTx> getTxs() {
-        Log.d(TAG, "getTxs: ");
-        final List<Transaction> transitions = walletAppKit.wallet()
-                .getTransactionsByTime();
+        Log.d(TAG, "getTxs");
+        final List<Transaction> transitions = walletAppKit.wallet().getTransactionsByTime();
         final List<BtcTx> result = new ArrayList<>(transitions.size());
         for (Transaction transaction : transitions) {
             result.add(new BtcTx(walletAppKit.wallet(), transaction));
@@ -104,7 +99,7 @@ public class BtcWallet {
     @SuppressWarnings("JavaDoc")
     @NonNull
     public Single<BtcTx> send(@NonNull String base58ToAddress, @NonNull String amountInSatoshis, @NonNull String feeInSatoshis) {
-        Log.d(TAG, "send: ");
+        Log.d(TAG, "send");
         return Single.create(emitter -> {
             //输入校验
             if (isInvalidAddress(base58ToAddress)) {
@@ -115,22 +110,20 @@ public class BtcWallet {
                 emitter.onError(new IllegalArgumentException("invalid fee: " + feeInSatoshis));
             } else if (isNotEnoughBalance(amountInSatoshis, feeInSatoshis)) {
                 emitter.onError(new InsufficientMoneyException(
-                        Coin.parseCoin(amountInSatoshis)
-                                .add(Coin.parseCoin(feeInSatoshis))
-                                .minus(walletAppKit.wallet().getBalance())
+                    Coin.parseCoin(amountInSatoshis)
+                        .add(Coin.parseCoin(feeInSatoshis))
+                        .minus(walletAppKit.wallet().getBalance())
                 ));
             } else {
                 try {
                     final SendRequest request = SendRequest.to(
-                            Address.fromBase58(Constants.NETWORK_PARAMETERS, base58ToAddress),
-                            Coin.parseCoin(amountInSatoshis)
+                        Address.fromBase58(Constants.NETWORK_PARAMETERS, base58ToAddress),
+                        Coin.parseCoin(amountInSatoshis)
                     );
                     request.feePerKb = Coin.parseCoin(feeInSatoshis);
                     walletAppKit.wallet().completeTx(request);
                     walletAppKit.wallet().commitTx(request.tx);
-                    walletAppKit.peerGroup()
-                            .broadcastTransaction(request.tx)
-                            .broadcast();
+                    walletAppKit.peerGroup().broadcastTransaction(request.tx).broadcast();
                     emitter.onSuccess(new BtcTx(walletAppKit.wallet(), request.tx));
                 } catch (InsufficientMoneyException e) {
                     emitter.onError(e);
@@ -145,7 +138,7 @@ public class BtcWallet {
      * @return
      */
     private boolean isInvalidAddress(@NonNull String base58ToAddress) {
-        Log.d(TAG, "isInvalidAddress: ");
+        Log.d(TAG, "isInvalidAddress");
         try {
             Address.fromBase58(Constants.NETWORK_PARAMETERS, base58ToAddress);
             return base58ToAddress.isEmpty();
@@ -160,7 +153,7 @@ public class BtcWallet {
      * @return
      */
     private boolean isInvalidCoinValue(@NonNull String valueInSatoshis) {
-        Log.d(TAG, "isInvalidCoinValue: ");
+        Log.d(TAG, "isInvalidCoinValue");
         try {
             final Coin value = Coin.parseCoin(valueInSatoshis);
             return valueInSatoshis.isEmpty() || value.isZero() || value.isNegative();
@@ -176,7 +169,7 @@ public class BtcWallet {
      * @return
      */
     private boolean isNotEnoughBalance(@NonNull String amountInSatoshis, @NonNull String feeInSatoshis) {
-        Log.d(TAG, "isNotEnoughBalance: ");
+        Log.d(TAG, "isNotEnoughBalance");
         final Coin value = Coin.parseCoin(amountInSatoshis);
         final Coin fee = Coin.parseCoin(feeInSatoshis);
         return walletAppKit.wallet()
@@ -185,15 +178,15 @@ public class BtcWallet {
     }
 
     /**
-     * 接收比特币监听器
+     * 接收交易监听器
      */
     public void addReceivedTxListener(@NonNull ReceivedTxListener listener) {
-        Log.d(TAG, "addReceivedTxListener: ");
+        Log.d(TAG, "addReceivedTxListener");
         walletAppKit.wallet()
-                .addCoinsReceivedEventListener((wallet, tx, prevBalance, newBalance) -> {
-                    Log.d(TAG, "balance: " + getBalance());
-                    listener.onReceivedTx(new BtcTx(wallet, tx));
-                });
+            .addCoinsReceivedEventListener((wallet, tx, prevBalance, newBalance) -> {
+                Log.d(TAG, "balance: " + getBalance());
+                listener.onReceivedTx(new BtcTx(wallet, tx));
+            });
     }
 
     /**

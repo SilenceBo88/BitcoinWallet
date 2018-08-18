@@ -11,14 +11,8 @@ import android.widget.TextView;
  */
 public class TextViewBingingAdapter {
 
-  /**
-   * Set the text color with color resource. This uses data binding,
-   * you can use {@code app:textColorRes} attribute for {@link TextView} in your XML layout.
-   *
-   * @param colorRes is the resource id of color.
-   */
-  @BindingAdapter("textColorRes")
-  public static void setTextColorResource(@NonNull TextView view, @ColorRes int colorRes) {
-    view.setTextColor(ContextCompat.getColor(view.getContext(), colorRes));
-  }
+    @BindingAdapter("textColorRes")
+    public static void setTextColorResource(@NonNull TextView view, @ColorRes int colorRes) {
+        view.setTextColor(ContextCompat.getColor(view.getContext(), colorRes));
+    }
 }

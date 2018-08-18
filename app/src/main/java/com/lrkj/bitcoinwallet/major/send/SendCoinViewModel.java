@@ -22,125 +22,125 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class SendCoinViewModel extends BaseViewModel {
 
-  @NonNull
-  private String toAddress = "";
+    @NonNull
+    private String toAddress = "";
 
-  @NonNull
-  private String amount = "";
+    @NonNull
+    private String amount = "";
 
-  @NonNull
-  private String fee = "";
+    @NonNull
+    private String fee = "";
 
-  private boolean confirmBtnEnabled = true;
+    private boolean confirmBtnEnabled = true;
 
-  @Nullable
-  private Disposable sendCoinDisposable;
+    @Nullable
+    private Disposable sendCoinDisposable;
 
-  @NonNull
-  private final BtcWalletManager btcWalletManager;
+    @NonNull
+    private final BtcWalletManager btcWalletManager;
 
-  public SendCoinViewModel(@NonNull BtcWalletManager btcWalletManager) {
-    this.btcWalletManager = btcWalletManager;
-  }
-
-  void stop() {
-    if (sendCoinDisposable != null && !sendCoinDisposable.isDisposed()) {
-      sendCoinDisposable.dispose();
+    public SendCoinViewModel(@NonNull BtcWalletManager btcWalletManager) {
+        this.btcWalletManager = btcWalletManager;
     }
-  }
 
-  public void back(@NonNull FragmentManager fragmentManager) {
-    fragmentManager.popBackStack();
-  }
+    void stop() {
+        if (sendCoinDisposable != null && !sendCoinDisposable.isDisposed()) {
+            sendCoinDisposable.dispose();
+        }
+    }
 
-  /**
-   * Send coin then close current page.
-   */
-  public void send(@NonNull FragmentManager fragmentManager, @NonNull Activity activity) {
-    setConfirmBtnEnabled(false);
-    Keyboard.hideSoftKeyboard(activity);
-    sendCoinDisposable = btcWalletManager.getCurrent()
-        .send(toAddress, amount, fee)
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnSuccess(btcTx -> showSnackBarMessage(R.string.send_coin_send_done))
-        .observeOn(Schedulers.io())
-        .doOnSuccess(btcTx -> SECONDS.sleep(1))
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(btcTx -> {
-              back(fragmentManager);
-            }, throwable -> {
-              if (isInValidAddressException(throwable)) {
-                showSnackBarMessage(R.string.send_coin_invalid_to_address);
-              } else if (isInValidAmountException(throwable)) {
-                showSnackBarMessage(R.string.send_coin_invalid_amount);
-              } else if (isInValidFeeException(throwable)) {
-                showSnackBarMessage(R.string.send_coin_invalid_fee);
-              } else if (isInsufficientMoneyException(throwable)) {
-                showSnackBarMessage(R.string.send_coin_not_enough_balance);
-              } else {
-                showSnackBarMessage(R.string.send_coin_failed);
-              }
-              setConfirmBtnEnabled(true);
-            }
-        );
-  }
+    public void back(@NonNull FragmentManager fragmentManager) {
+        fragmentManager.popBackStack();
+    }
 
-  private boolean isInValidAddressException(@NonNull Throwable throwable) {
-    return throwable instanceof IllegalArgumentException && throwable.getMessage().contains("invalid address");
-  }
+    /**
+     * Send coin then close current page.
+     */
+    public void send(@NonNull FragmentManager fragmentManager, @NonNull Activity activity) {
+        setConfirmBtnEnabled(false);
+        Keyboard.hideSoftKeyboard(activity);
+        sendCoinDisposable = btcWalletManager.getCurrent()
+                .send(toAddress, amount, fee)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSuccess(btcTx -> showSnackBarMessage(R.string.send_coin_send_done))
+                .observeOn(Schedulers.io())
+                .doOnSuccess(btcTx -> SECONDS.sleep(1))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(btcTx -> {
+                            back(fragmentManager);
+                        }, throwable -> {
+                            if (isInValidAddressException(throwable)) {
+                                showSnackBarMessage(R.string.send_coin_invalid_to_address);
+                            } else if (isInValidAmountException(throwable)) {
+                                showSnackBarMessage(R.string.send_coin_invalid_amount);
+                            } else if (isInValidFeeException(throwable)) {
+                                showSnackBarMessage(R.string.send_coin_invalid_fee);
+                            } else if (isInsufficientMoneyException(throwable)) {
+                                showSnackBarMessage(R.string.send_coin_not_enough_balance);
+                            } else {
+                                showSnackBarMessage(R.string.send_coin_failed);
+                            }
+                            setConfirmBtnEnabled(true);
+                        }
+                );
+    }
 
-  private boolean isInValidAmountException(@NonNull Throwable throwable) {
-    return throwable instanceof IllegalArgumentException && throwable.getMessage().contains("invalid amount");
-  }
+    private boolean isInValidAddressException(@NonNull Throwable throwable) {
+        return throwable instanceof IllegalArgumentException && throwable.getMessage().contains("invalid address");
+    }
 
-  private boolean isInValidFeeException(@NonNull Throwable throwable) {
-    return throwable instanceof IllegalArgumentException && throwable.getMessage().contains("invalid fee");
-  }
+    private boolean isInValidAmountException(@NonNull Throwable throwable) {
+        return throwable instanceof IllegalArgumentException && throwable.getMessage().contains("invalid amount");
+    }
 
-  private boolean isInsufficientMoneyException(@NonNull Throwable throwable) {
-    return throwable instanceof InsufficientMoneyException;
-  }
+    private boolean isInValidFeeException(@NonNull Throwable throwable) {
+        return throwable instanceof IllegalArgumentException && throwable.getMessage().contains("invalid fee");
+    }
 
-  @Bindable
-  @NonNull
-  public String getToAddress() {
-    return toAddress;
-  }
+    private boolean isInsufficientMoneyException(@NonNull Throwable throwable) {
+        return throwable instanceof InsufficientMoneyException;
+    }
 
-  public void setToAddress(@NonNull String toAddress) {
-    this.toAddress = toAddress;
-    notifyPropertyChanged(BR.toAddress);
-  }
+    @Bindable
+    @NonNull
+    public String getToAddress() {
+        return toAddress;
+    }
 
-  @Bindable
-  @NonNull
-  public String getAmount() {
-    return amount;
-  }
+    public void setToAddress(@NonNull String toAddress) {
+        this.toAddress = toAddress;
+        notifyPropertyChanged(BR.toAddress);
+    }
 
-  public void setAmount(@NonNull String amount) {
-    this.amount = amount;
-    notifyPropertyChanged(BR.amount);
-  }
+    @Bindable
+    @NonNull
+    public String getAmount() {
+        return amount;
+    }
 
-  @Bindable
-  @NonNull
-  public String getFee() {
-    return fee;
-  }
+    public void setAmount(@NonNull String amount) {
+        this.amount = amount;
+        notifyPropertyChanged(BR.amount);
+    }
 
-  public void setFee(@NonNull String fee) {
-    this.fee = fee;
-    notifyPropertyChanged(BR.fee);
-  }
+    @Bindable
+    @NonNull
+    public String getFee() {
+        return fee;
+    }
 
-  @Bindable
-  public boolean isConfirmBtnEnabled() {
-    return confirmBtnEnabled;
-  }
+    public void setFee(@NonNull String fee) {
+        this.fee = fee;
+        notifyPropertyChanged(BR.fee);
+    }
 
-  private void setConfirmBtnEnabled(boolean confirmBtnEnabled) {
-    this.confirmBtnEnabled = confirmBtnEnabled;
-    notifyPropertyChanged(BR.confirmBtnEnabled);
-  }
+    @Bindable
+    public boolean isConfirmBtnEnabled() {
+        return confirmBtnEnabled;
+    }
+
+    private void setConfirmBtnEnabled(boolean confirmBtnEnabled) {
+        this.confirmBtnEnabled = confirmBtnEnabled;
+        notifyPropertyChanged(BR.confirmBtnEnabled);
+    }
 }

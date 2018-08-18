@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">BitcoinWallet</string>
 
-    <string name="empty" translatable="false"/>
+    <string name="empty" translatable="false" />
 
     <string name="create_wallet_error">创建失败，请重试</string>
     <string name="restore_error">导入失败，请重试</string>

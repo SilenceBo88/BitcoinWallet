@@ -1,11 +1,7 @@
 package com.lrkj.bitcoinwallet.major.landing;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.widget.EditText;
 
-import com.lrkj.bitcoinwallet.MyApplication;
 import com.lrkj.bitcoinwallet.R;
 import com.lrkj.bitcoinwallet.base.BaseActivity;
 import com.lrkj.bitcoinwallet.core.BtcWalletManager;
@@ -30,7 +26,7 @@ public class LandingActivity extends BaseActivity {
     /**
      * 显示钱包生成页面
      */
-    private void showLandingPage() {
+    public void showLandingPage() {
         final LandingFragment fragment = LandingFragment.newInstance();
         fragment.setViewModel(new LandingViewModel(BtcWalletManager.getInstance(this)));
         ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), fragment, R.id.contentFrame);
