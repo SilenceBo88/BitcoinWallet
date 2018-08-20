@@ -74,15 +74,15 @@
                 android:layout_marginBottom="20dp"
                 android:ems="40"
                 android:singleLine="true"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:text="@{viewModel.address}"
                 android:layout_gravity="center"
                 tools:text="66666666666666666666666"/>
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/QR"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
                 android:layout_gravity="center"
                 tools:src="@drawable/ic_launcher_background" />
 

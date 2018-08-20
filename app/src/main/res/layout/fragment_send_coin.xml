@@ -78,6 +78,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:gravity="top"
+                android:textSize="14sp"
                 android:hint="交易地址"
                 android:maxLines="2"
                 android:singleLine="false"
