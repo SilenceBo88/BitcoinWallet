@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
@@ -38,6 +39,8 @@ import com.lrkj.bitcoinwallet.core.BtcWalletManager;
 import com.lrkj.bitcoinwallet.databinding.FragmentMainBinding;
 import com.lrkj.bitcoinwallet.major.landing.LandingActivity;
 import com.lrkj.bitcoinwallet.major.main.tx.TxListAdapter;
+import com.lrkj.bitcoinwallet.major.send.SendCoinFragment;
+import com.lrkj.bitcoinwallet.major.send.SendCoinViewModel;
 import com.lrkj.bitcoinwallet.util.ActivityUtils;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
@@ -86,6 +89,7 @@ public class MainFragment extends BaseView<MainViewModel, FragmentMainBinding> {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
+        drawerLayout = ((MainActivity) getActivity()).findViewById(R.id.drawer_layout);
         ZXingLibrary.initDisplayOpinion(getActivity());
         navigationView = ((MainActivity) getActivity()).findViewById(R.id.nav_view);
         //菜单项点击事件
@@ -96,6 +100,7 @@ public class MainFragment extends BaseView<MainViewModel, FragmentMainBinding> {
                     case R.id.nav_scan:
                         Intent intent = new Intent(getActivity(), CaptureActivity.class);
                         startActivityForResult(intent, 2);
+                        drawerLayout.closeDrawers();
                         break;
                     case R.id.nav_new:
                         //消息提示
@@ -119,9 +124,28 @@ public class MainFragment extends BaseView<MainViewModel, FragmentMainBinding> {
                                     }
                                 }).create();
                         dialog.show();
+                        drawerLayout.closeDrawers();
                         break;
                     case R.id.nav_save:
-                        Toast.makeText(MyApplication.getContext(), "备份助记词", Toast.LENGTH_SHORT).show();
+                        //消息提示
+                        AlertDialog dialog2 = new AlertDialog.Builder((MainActivity) getActivity())
+                                .setTitle("提示:这是你的助记词，请保存好")//设置对话框的标题
+                                .setMessage(viewModel.getBtcWalletManager().getCurrent().getMnemonic())//设置对话框的内容
+                                //设置对话框的按钮
+                                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                }).create();
+                        dialog2.show();
+                        drawerLayout.closeDrawers();
                         break;
                     default:
                         break;
@@ -166,7 +190,6 @@ public class MainFragment extends BaseView<MainViewModel, FragmentMainBinding> {
     //菜单按钮点击事件
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        drawerLayout = ((MainActivity) getActivity()).findViewById(R.id.drawer_layout);
         switch (item.getItemId()) {
             case android.R.id.home:
                 drawerLayout.openDrawer(GravityCompat.START);
@@ -228,7 +251,14 @@ public class MainFragment extends BaseView<MainViewModel, FragmentMainBinding> {
                 }
                 if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                     String result = bundle.getString(CodeUtils.RESULT_STRING);
-                    Toast.makeText(getActivity(), "解析结果:" + result, Toast.LENGTH_LONG).show();
+
+                    //去发送比特币页面
+                    final SendCoinFragment view = SendCoinFragment.newInstance();
+                    SendCoinViewModel sendCoinViewModel = new SendCoinViewModel(viewModel.getBtcWalletManager());
+                    view.setViewModel(sendCoinViewModel);
+                    ActivityUtils.replaceAndKeepOld(getActivity().getSupportFragmentManager(), view, R.id.contentFrame);
+                    sendCoinViewModel.setToAddress(result.split(":")[1]);
+                    /*Toast.makeText(getActivity(), "解析结果:" + result, Toast.LENGTH_LONG).show();*/
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
                     Toast.makeText(getActivity(), "解析二维码失败", Toast.LENGTH_LONG).show();
                 }

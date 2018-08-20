@@ -272,4 +272,9 @@ public class MainViewModel extends BaseViewModel implements CompletableObserver,
             toolbar.setTitle(balance);
         }
     }
+
+    @NonNull
+    public BtcWalletManager getBtcWalletManager() {
+        return btcWalletManager;
+    }
 }
