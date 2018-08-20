@@ -24,12 +24,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.lrkj.bitcoinwallet.MyApplication;
@@ -42,6 +44,8 @@ import com.lrkj.bitcoinwallet.major.main.tx.TxListAdapter;
 import com.lrkj.bitcoinwallet.major.send.SendCoinFragment;
 import com.lrkj.bitcoinwallet.major.send.SendCoinViewModel;
 import com.lrkj.bitcoinwallet.util.ActivityUtils;
+import com.lrkj.bitcoinwallet.util.MD5Utils;
+import com.lrkj.bitcoinwallet.util.SharedPreferencesUtils;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
@@ -103,48 +107,11 @@ public class MainFragment extends BaseView<MainViewModel, FragmentMainBinding> {
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.nav_new:
-                        //消息提示
-                        AlertDialog dialog = new AlertDialog.Builder((MainActivity) getActivity())
-                                .setTitle("提示:")//设置对话框的标题
-                                .setMessage("创建新的钱包会丢失现在的钱包，请确认已备份助记词。")//设置对话框的内容
-                                //设置对话框的按钮
-                                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                })
-                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                        BtcWalletManager.deleteWallet();
-                                        Intent intent = new Intent(MyApplication.getContext(), LandingActivity.class);
-                                        startActivity(intent);
-                                    }
-                                }).create();
-                        dialog.show();
+                        alert_new_wallet();
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.nav_save:
-                        //消息提示
-                        AlertDialog dialog2 = new AlertDialog.Builder((MainActivity) getActivity())
-                                .setTitle("提示:这是你的助记词，请保存好")//设置对话框的标题
-                                .setMessage(viewModel.getBtcWalletManager().getCurrent().getMnemonic())//设置对话框的内容
-                                //设置对话框的按钮
-                                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                })
-                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                }).create();
-                        dialog2.show();
+                        alert_export_seed();
                         drawerLayout.closeDrawers();
                         break;
                     default:
@@ -223,23 +190,6 @@ public class MainFragment extends BaseView<MainViewModel, FragmentMainBinding> {
         }
     }
 
-    /*@Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.main, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }*/
-
-    /*@Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.actionExport:
-                showExportDialog();
-                break;
-            default:
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 2) {
@@ -266,18 +216,96 @@ public class MainFragment extends BaseView<MainViewModel, FragmentMainBinding> {
         }
     }
 
-    /**
-     * Launch the create wallet page.
-     */
-    /*private void showExportDialog() {
-        final FragmentActivity activity = getActivity();
-        if (activity != null) {
-            ExportToMnemonicDialogFragment.newInstance()
-                    .show(activity.getSupportFragmentManager(), EXPORT_DIALOG_TAG);
-        }
-    }*/
+    public void alert_new_wallet(){
+        EditText et = new EditText((MainActivity) getActivity());
+        et.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        AlertDialog dialog = new AlertDialog.Builder((MainActivity) getActivity())
+                .setView(et)
+                .setTitle("请输入密码:")//设置对话框的标题
+                //设置对话框的按钮
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String md5Pass = (String) SharedPreferencesUtils.getObject(MyApplication.getContext(), "btcWalletPass");
+                        if (md5Pass.equals(MD5Utils.md5(et.getText().toString()))){
+                            /*Toast.makeText(MyApplication.getContext(), "密码正确",Toast.LENGTH_LONG).show();*/
+                            dialog.dismiss();
 
+                            //消息提示
+                            AlertDialog alertDialog = new AlertDialog.Builder((MainActivity) getActivity())
+                                    .setTitle("提示:")//设置对话框的标题
+                                    .setMessage("创建新的钱包会丢失现在的钱包，请确认已备份助记词。")//设置对话框的内容
+                                    //设置对话框的按钮
+                                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    })
+                                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                            BtcWalletManager.deleteWallet();
+                                            Intent intent = new Intent(MyApplication.getContext(), LandingActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    }).create();
+                            alertDialog.show();
+                        }else {
+                            Toast.makeText(MyApplication.getContext(), "密码错误",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }).create();
+        dialog.show();
+    }
 
+    public void alert_export_seed(){
+        EditText et = new EditText((MainActivity) getActivity());
+        et.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        AlertDialog dialog = new AlertDialog.Builder((MainActivity) getActivity())
+                .setView(et)
+                .setTitle("请输入密码:")//设置对话框的标题
+                //设置对话框的按钮
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String md5Pass = (String) SharedPreferencesUtils.getObject(MyApplication.getContext(), "btcWalletPass");
+                        if (md5Pass.equals(MD5Utils.md5(et.getText().toString()))){
+                            /*Toast.makeText(MyApplication.getContext(), "密码正确",Toast.LENGTH_LONG).show();*/
+                            dialog.dismiss();
+
+                            //助记词
+                            AlertDialog alertDialog = new AlertDialog.Builder((MainActivity) getActivity())
+                                    .setTitle("提示:这是你的助记词，请保存好")//设置对话框的标题
+                                    .setMessage(viewModel.getBtcWalletManager().getCurrent().getMnemonic())//设置对话框的内容
+                                    //设置对话框的按钮
+                                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    }).create();
+                            alertDialog.show();
+                        }else {
+                            Toast.makeText(MyApplication.getContext(), "密码错误",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }).create();
+        dialog.show();
+    }
 
     @Override
     public void onDestroyView() {

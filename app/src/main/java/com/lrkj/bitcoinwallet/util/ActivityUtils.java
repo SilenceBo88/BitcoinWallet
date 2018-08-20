@@ -1,10 +1,17 @@
 package com.lrkj.bitcoinwallet.util;
 
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.lrkj.bitcoinwallet.MyApplication;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

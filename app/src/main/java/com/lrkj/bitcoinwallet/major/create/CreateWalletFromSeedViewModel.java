@@ -1,8 +1,11 @@
 package com.lrkj.bitcoinwallet.major.create;
 
+import android.content.DialogInterface;
 import android.databinding.Bindable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -37,12 +40,10 @@ public class CreateWalletFromSeedViewModel extends BaseViewModel {
     @NonNull
     private final BtcWalletManager btcWalletManager;
 
-    @NonNull
-    private final String mnemonic;
+    private String mnemonic;
 
     public CreateWalletFromSeedViewModel(@NonNull BtcWalletManager btcWalletManager) {
         this.btcWalletManager = btcWalletManager;
-        mnemonic = BtcWalletManager.generateMnemonic();
     }
 
     /**
@@ -65,19 +66,36 @@ public class CreateWalletFromSeedViewModel extends BaseViewModel {
         boolean flag = checkPass(newPass.getText().toString(), newRePass.getText().toString());
 
         if (flag) {
-            Keyboard.hideSoftKeyboard(activity);
-            setConfirmBtnEnabled(false);
-            setProgressVisibility(VISIBLE);
-            createDisposable = btcWalletManager.create(mnemonic)
-                    .subscribe(() -> {
-                                setProgressVisibility(GONE);
-                                MainActivity.startAndFinishCurrent(activity);
-                            }, throwable -> {
-                                showSnackBarMessage(R.string.create_wallet_error);
-                                setProgressVisibility(GONE);
-                                setConfirmBtnEnabled(true);
-                            }
-                    );
+            //生成助记词
+            mnemonic = BtcWalletManager.generateMnemonic();
+            /*Log.d("助记词：", mnemonic);*/
+            //助记词显示
+            AlertDialog alertDialog = new AlertDialog.Builder(activity)
+                    .setTitle("提示:助记词是恢复钱包的唯一方式，请保存好！")//设置对话框的标题
+                    .setMessage(mnemonic)//设置对话框的内容
+                    //设置对话框的按钮
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+
+                            //创建钱包
+                            Keyboard.hideSoftKeyboard(activity);
+                            setConfirmBtnEnabled(false);
+                            setProgressVisibility(VISIBLE);
+                            createDisposable = btcWalletManager.create(mnemonic)
+                                    .subscribe(() -> {
+                                                setProgressVisibility(GONE);
+                                                MainActivity.startAndFinishCurrent(activity);
+                                            }, throwable -> {
+                                                showSnackBarMessage(R.string.create_wallet_error);
+                                                setProgressVisibility(GONE);
+                                                setConfirmBtnEnabled(true);
+                                            }
+                                    );
+                        }
+                    }).create();
+            alertDialog.show();
         }
     }
 

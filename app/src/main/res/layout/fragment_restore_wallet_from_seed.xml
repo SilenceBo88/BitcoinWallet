@@ -72,7 +72,7 @@
                 android:inputType="textMultiLine"
                 android:maxLines="5"
                 android:singleLine="false"
-                android:text="anger swamp parent shell saddle tip subway bubble emerge hawk find fan insane nothing medal much absurd six autumn magnet tortoise bone menu piano" />
+                android:text=""/>
 
             <EditText
                 android:id="@+id/import_btcwallet_pass"
