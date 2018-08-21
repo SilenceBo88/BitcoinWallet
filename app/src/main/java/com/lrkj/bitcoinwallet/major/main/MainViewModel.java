@@ -138,10 +138,15 @@ public class MainViewModel extends BaseViewModel implements CompletableObserver,
     }
 
     /**
-     * 加载交易
+     * 重新加载
      */
     public void loadTxs() {
         setShowProgressBar(true);
+        //加载余额和地址
+        setAddress(btcWalletManager.getCurrent().getAddress());
+        setBalance(btcWalletManager.getCurrent().getBalance());
+
+        //加载交易
         items.clear();
         items.addAll(btcWalletManager.getCurrent().getTxs());
         if (adapter != null) {

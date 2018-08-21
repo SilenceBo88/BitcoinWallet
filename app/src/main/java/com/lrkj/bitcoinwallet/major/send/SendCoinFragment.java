@@ -121,7 +121,39 @@ public class SendCoinFragment extends BaseView<SendCoinViewModel, FragmentSendCo
                 }
                 if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                     String result = bundle.getString(CodeUtils.RESULT_STRING);
-                    viewModel.setToAddress(result.split(":")[1]);
+
+                    //解析比特币二维码
+                    if(result.contains("?")){
+                        String code = result.substring(0, result.indexOf("?"));
+                        if(code.startsWith("bitcoin://"))    {
+                            code = code.substring(10);
+                            viewModel.setToAddress(code);
+                        }
+                        if(code.startsWith("bitcoin:"))    {
+                            code = code.substring(8);
+                            viewModel.setToAddress(code);
+                        }
+                        if (result.contains("&")) {
+                            result = result.split("&")[0];
+                            viewModel.setAmount(result.substring(result.indexOf("?")).split("=")[1]);
+                        }else {
+                            viewModel.setAmount(result.substring(result.indexOf("?")).split("=")[1]);
+                        }
+                    }else if (!result.contains("?") && result.contains("bitcoin:")){
+                        String code = result;
+                        if(code.startsWith("bitcoin://"))    {
+                            code = code.substring(10);
+                            viewModel.setToAddress(code);
+                        }
+                        if(code.startsWith("bitcoin:"))    {
+                            code = code.substring(8);
+                            viewModel.setToAddress(code);
+                        }
+                    }else {
+                        viewModel.setToAddress(result);
+                        /*Toast.makeText(getActivity(), "二维码不符合格式", Toast.LENGTH_LONG).show();*/
+                    }
+                    /*viewModel.setToAddress(result.split(":")[1]);*/
                     /*Toast.makeText(getActivity(), "解析结果:" + result, Toast.LENGTH_LONG).show();*/
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
                     Toast.makeText(getActivity(), "解析二维码失败", Toast.LENGTH_LONG).show();

@@ -226,7 +226,39 @@ public class MainFragment extends BaseView<MainViewModel, FragmentMainBinding> {
                     SendCoinViewModel sendCoinViewModel = new SendCoinViewModel(viewModel.getBtcWalletManager());
                     view.setViewModel(sendCoinViewModel);
                     ActivityUtils.replaceAndKeepOld(getActivity().getSupportFragmentManager(), view, R.id.contentFrame);
-                    sendCoinViewModel.setToAddress(result.split(":")[1]);
+
+                    //解析比特币二维码
+                    if(result.contains("?")){
+                        String code = result.substring(0, result.indexOf("?"));
+                        if(code.startsWith("bitcoin://"))    {
+                            code = code.substring(10);
+                            sendCoinViewModel.setToAddress(code);
+                        }
+                        if(code.startsWith("bitcoin:"))    {
+                            code = code.substring(8);
+                            sendCoinViewModel.setToAddress(code);
+                        }
+                        if (result.contains("&")) {
+                            result = result.split("&")[0];
+                            sendCoinViewModel.setAmount(result.substring(result.indexOf("?")).split("=")[1]);
+                        }else {
+                            sendCoinViewModel.setAmount(result.substring(result.indexOf("?")).split("=")[1]);
+                        }
+                    }else if (!result.contains("?") && result.contains("bitcoin:")){
+                        String code = result;
+                        if(code.startsWith("bitcoin://"))    {
+                            code = code.substring(10);
+                            sendCoinViewModel.setToAddress(code);
+                        }
+                        if(code.startsWith("bitcoin:"))    {
+                            code = code.substring(8);
+                            sendCoinViewModel.setToAddress(code);
+                        }
+                    }else {
+                        sendCoinViewModel.setToAddress(result);
+                        /*Toast.makeText(getActivity(), "二维码不符合格式", Toast.LENGTH_LONG).show();*/
+                    }
+                    /*sendCoinViewModel.setToAddress(result.split(":")[1]);*/
                     /*Toast.makeText(getActivity(), "解析结果:" + result, Toast.LENGTH_LONG).show();*/
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
                     Toast.makeText(getActivity(), "解析二维码失败", Toast.LENGTH_LONG).show();
