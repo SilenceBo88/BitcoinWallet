@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
+import com.google.common.collect.ImmutableList;
 import com.lrkj.bitcoinwallet.Constants;
 import com.lrkj.bitcoinwallet.MyApplication;
 import com.lrkj.bitcoinwallet.util.FileUtils;;
@@ -18,6 +19,7 @@ import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.core.listeners.DownloadProgressTracker;
 import org.bitcoinj.crypto.MnemonicCode;
 import org.bitcoinj.crypto.MnemonicException;
+import org.bitcoinj.crypto.ChildNumber;
 import org.bitcoinj.kits.WalletAppKit;
 import org.bitcoinj.params.TestNet3Params;
 import org.bitcoinj.wallet.DeterministicSeed;
@@ -179,7 +181,8 @@ public class BtcWalletManager {
             @NonNull
             @Override
             protected Wallet createWallet() {
-                return Wallet.fromSeed(networkParameters, seed);
+                return Wallet.fromSeed(networkParameters, seed, ImmutableList.of(new ChildNumber(44, true), new ChildNumber(0, true), ChildNumber.ZERO_HARDENED));
+                /*return Wallet.fromSeed(networkParameters, seed);*/
             }
         };
 

@@ -11,8 +11,10 @@ import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.InsufficientMoneyException;
+import org.bitcoinj.core.LegacyAddress;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.kits.WalletAppKit;
+import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.wallet.SendRequest;
 
 import java.util.ArrayList;
@@ -71,7 +73,8 @@ public class BtcWallet {
     @NonNull
     public String getAddress() {
         Log.d(TAG, "getAddress");
-        return walletAppKit.wallet().currentReceiveAddress().toBase58();
+        return LegacyAddress.fromKey(Constants.NETWORK_PARAMETERS, walletAppKit.wallet().currentReceiveKey()).toString();
+        /*return walletAppKit.wallet().currentReceiveAddress().toString();*/
     }
 
     /**
@@ -117,7 +120,7 @@ public class BtcWallet {
             } else {
                 try {
                     final SendRequest request = SendRequest.to(
-                        Address.fromBase58(Constants.NETWORK_PARAMETERS, base58ToAddress),
+                        LegacyAddress.fromBase58(Constants.NETWORK_PARAMETERS, base58ToAddress),
                         Coin.parseCoin(amountInSatoshis)
                     );
                     request.feePerKb = Coin.parseCoin(feeInSatoshis);
@@ -140,7 +143,7 @@ public class BtcWallet {
     private boolean isInvalidAddress(@NonNull String base58ToAddress) {
         Log.d(TAG, "isInvalidAddress");
         try {
-            Address.fromBase58(Constants.NETWORK_PARAMETERS, base58ToAddress);
+            LegacyAddress.fromBase58(Constants.NETWORK_PARAMETERS, base58ToAddress);
             return base58ToAddress.isEmpty();
         } catch (AddressFormatException e) {
             return true;

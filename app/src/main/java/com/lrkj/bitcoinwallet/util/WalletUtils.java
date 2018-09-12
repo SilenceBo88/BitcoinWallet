@@ -11,7 +11,6 @@ import android.util.Log;
 
 import com.lrkj.bitcoinwallet.Constants;
 
-import org.bitcoinj.core.ScriptException;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionOutput;
 import org.bitcoinj.script.Script;
@@ -99,7 +98,7 @@ public class WalletUtils {
                     final Script script = output.getScriptPubKey();
                     return script.getToAddress(Constants.NETWORK_PARAMETERS, true).toString();
                 }
-            } catch (final ScriptException x) {
+            } catch (final Exception x) {
                 // swallow
             }
         }
@@ -122,7 +121,7 @@ public class WalletUtils {
                     final Script script = output.getScriptPubKey();
                     return script.getToAddress(Constants.NETWORK_PARAMETERS, true).toString();
                 }
-            } catch (final ScriptException x) {
+            } catch (final Exception x) {
                 // swallow
             }
         }
