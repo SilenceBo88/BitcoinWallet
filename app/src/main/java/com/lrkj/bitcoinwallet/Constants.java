@@ -10,8 +10,8 @@ public final class Constants {
 
     //网络选择
     @NonNull
-    public static final NetworkParameters NETWORK_PARAMETERS = MainNetParams.get();
-    /*public static final NetworkParameters NETWORK_PARAMETERS = TestNet3Params.get();*/
+    /*public static final NetworkParameters NETWORK_PARAMETERS = MainNetParams.get();*/
+    public static final NetworkParameters NETWORK_PARAMETERS = TestNet3Params.get();
 
     //空格
     public static final char CHAR_THIN_SPACE = '\u2009';

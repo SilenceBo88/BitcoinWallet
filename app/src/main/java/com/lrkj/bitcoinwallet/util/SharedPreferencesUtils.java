@@ -68,7 +68,6 @@ public class SharedPreferencesUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return null;
     }
 }

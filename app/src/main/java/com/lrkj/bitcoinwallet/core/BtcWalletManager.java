@@ -181,7 +181,11 @@ public class BtcWalletManager {
             @NonNull
             @Override
             protected Wallet createWallet() {
-                return Wallet.fromSeed(networkParameters, seed, ImmutableList.of(new ChildNumber(44, true), new ChildNumber(0, true), ChildNumber.ZERO_HARDENED));
+                if (Constants.NETWORK_PARAMETERS.equals(TestNet3Params.get())){
+                    return Wallet.fromSeed(networkParameters, seed, ImmutableList.of(new ChildNumber(44, true), new ChildNumber(1, true), ChildNumber.ZERO_HARDENED));
+                }else {
+                    return Wallet.fromSeed(networkParameters, seed, ImmutableList.of(new ChildNumber(44, true), new ChildNumber(0, true), ChildNumber.ZERO_HARDENED));
+                }
                 /*return Wallet.fromSeed(networkParameters, seed);*/
             }
         };
